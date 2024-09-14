@@ -15,7 +15,7 @@ function Home() {
               ADOPTA, NO COMPRES.
             </h1>
             <p className="text-xl mb-8">
-              Dale un hogar a un animal necesitado y cambia una vida para
+              Dale un hogar a un animal necesitado y cambia dos vidas para
               siempre.
             </p>
             <Link
