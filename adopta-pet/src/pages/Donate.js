@@ -1,76 +1,65 @@
-import React, { useState } from "react"
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js"
-import { stripePromise } from "../stripe"
-import { Elements } from "@stripe/react-stripe-js"
+import React from "react"
+import { FaPaypal } from "react-icons/fa"
+import { SiBizum } from "react-icons/si"
 
-function DonateForm() {
-  const [amount, setAmount] = useState("")
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const stripe = useStripe()
-  const elements = useElements()
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!stripe || !elements) {
-      return
-    }
-
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card: elements.getElement(CardElement),
-      billing_details: {
-        name: name,
-        email: email,
-      },
-    })
-
-    if (error) {
-      console.log("[error]", error)
-    } else {
-      console.log("[PaymentMethod]", paymentMethod)
-      // Aquí enviarías el paymentMethod.id a tu servidor para procesar el pago
-      alert(`Gracias por tu donación de $${amount}, ${name}!`)
-    }
-  }
-
-  return (
-    <form onSubmit={handleSubmit}>
-      {/* ... (los campos de amount, name y email como antes) ... */}
-      <div className="mb-6">
-        <label
-          htmlFor="card-element"
-          className="block text-gray-700 font-bold mb-2"
-        >
-          Información de Tarjeta de Crédito
-        </label>
-        <CardElement
-          id="card-element"
-          className="p-3 border border-gray-300 rounded-md"
-        />
-      </div>
-      <button
-        type="submit"
-        disabled={!stripe}
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300"
-      >
-        Donar
-      </button>
-    </form>
-  )
-}
-
-function Donate() {
+export default function Donate() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6 text-center">Haz una Donación</h1>
-      <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
-        <Elements stripe={stripePromise}>
-          <DonateForm />
-        </Elements>
+      <h1 className="text-3xl font-bold text-center mb-8">Haz una donación</h1>
+
+      <div className="max-w-2xl mx-auto space-y-8">
+        <section className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-2xl font-semibold mb-4">Métodos de pago</h2>
+
+          <div className="space-y-4">
+            <button
+              className="w-full flex items-center justify-center space-x-2 bg-[#0070ba] text-white py-3 px-4 rounded-md hover:bg-[#003087] transition duration-300"
+              onClick={() =>
+                window.open("https://www.paypal.com/donate", "_blank")
+              }
+            >
+              <FaPaypal className="text-2xl" />
+              <span>Donar con PayPal</span>
+            </button>
+
+            {/* <button
+              className="w-full flex items-center justify-center space-x-2 bg-[#00c2eb] text-white py-3 px-4 rounded-md hover:bg-[#00a3c7] transition duration-300"
+              onClick={() => alert("Implementar lógica de Bizum")}
+            >
+              <SiBizum className="text-2xl" />
+              <span>Donar con Bizum</span>
+            </button> */}
+          </div>
+        </section>
+
+        <section className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-2xl font-semibold mb-4">
+            Donativo por transferencia bancaria
+          </h2>
+          <div className="space-y-2">
+            <p>
+              <strong>TITULAR:</strong> Mi Mejor Amigo de Cuatro Patas
+            </p>
+            <p>
+              <strong>IBAN:</strong> ES12 0073 0100 5505 0519 9959
+            </p>
+            <p>
+              <strong>BANCO:</strong> Openbank
+            </p>
+            <p>
+              <strong>BIZUM:</strong> Dona a ong Mi mejor amigo de 4 patas o
+              código 04953
+            </p>
+          </div>
+        </section>
+
+        <section className="text-center">
+          <p className="text-lg">
+            Tu donación nos ayuda a seguir cuidando y encontrando hogares para
+            animales necesitados. ¡Gracias por tu apoyo!
+          </p>
+        </section>
       </div>
     </div>
   )
 }
-
-export default Donate
