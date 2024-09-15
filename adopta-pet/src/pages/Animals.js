@@ -111,7 +111,7 @@ function Animals() {
                   type: "Perro",
                   age: 2,
                   color: "Blanco",
-                  image: "/placeholder.svg?height=300&width=300",
+                  image: require("../assets/images/photo2.avif"),
                 },
                 {
                   id: 2,

@@ -4,11 +4,11 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 800)
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1100)
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 800)
+      setIsSmallScreen(window.innerWidth < 1100)
     }
 
     window.addEventListener("resize", handleResize)

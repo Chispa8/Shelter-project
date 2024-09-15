@@ -3,11 +3,11 @@ import { Link } from "react-router-dom"
 
 function AdoptionSection() {
   const animals = [
-    { id: 1, name: "Luna", image: "/placeholder.svg?height=300&width=300" },
-    { id: 2, name: "Max", image: "/placeholder.svg?height=300&width=300" },
-    { id: 3, name: "Bella", image: "/placeholder.svg?height=300&width=300" },
-    { id: 4, name: "Charlie", image: "/placeholder.svg?height=300&width=300" },
-    { id: 5, name: "Lucy", image: "/placeholder.svg?height=300&width=300" },
+    { id: 1, name: "Luna", image: require("../assets/images/photo2.avif") },
+    { id: 2, name: "Max", image: require("../assets/images/cat1.avif") },
+    { id: 3, name: "Bella", image: require("../assets/images/photo3.avif") },
+    { id: 4, name: "Charlie", image: require("../assets/images/cat2.avif") },
+    { id: 5, name: "Lucy", image: require("../assets/images/perro.webp") },
   ]
 
   return (
