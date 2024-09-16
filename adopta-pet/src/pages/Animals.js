@@ -119,7 +119,7 @@ function Animals() {
                   type: "Gato",
                   age: 1,
                   color: "Naranja",
-                  image: "/placeholder.svg?height=300&width=300",
+                  image: require("../assets/images/cat1.avif"),
                 },
                 {
                   id: 3,
@@ -127,7 +127,7 @@ function Animals() {
                   type: "Perro",
                   age: 3,
                   color: "Marrón",
-                  image: "/placeholder.svg?height=300&width=300",
+                  image: require("../assets/images/photo2.avif"),
                 },
                 {
                   id: 4,
@@ -135,7 +135,7 @@ function Animals() {
                   type: "Gato",
                   age: 2,
                   color: "Negro",
-                  image: "/placeholder.svg?height=300&width=300",
+                  image: require("../assets/images/cat2.avif"),
                 },
                 {
                   id: 5,
@@ -143,7 +143,7 @@ function Animals() {
                   type: "Perro",
                   age: 4,
                   color: "Dorado",
-                  image: "/placeholder.svg?height=300&width=300",
+                  image: require("../assets/images/photo3.avif"),
                 },
               ]),
             1000

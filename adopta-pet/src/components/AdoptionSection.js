@@ -16,7 +16,7 @@ function AdoptionSection() {
     {
       id: 1,
       name: "Luna",
-      image: "/placeholder.svg?height=300&width=300",
+      image: require("../assets/images/photo2.avif"),
       description:
         "Luna es una perra cariñosa y juguetona. Le encanta correr y jugar a la pelota.",
       age: 2,
@@ -26,7 +26,7 @@ function AdoptionSection() {
     {
       id: 2,
       name: "Max",
-      image: "/placeholder.svg?height=300&width=300",
+      image: require("../assets/images/cat1.avif"),
       description:
         "Max es un gato tranquilo y amigable. Disfruta de largas siestas al sol.",
       age: 3,
@@ -36,7 +36,7 @@ function AdoptionSection() {
     {
       id: 3,
       name: "Bella",
-      image: "/placeholder.svg?height=300&width=300",
+      image: require("../assets/images/photo1.avif"),
       description:
         "Bella es una perra energética y leal. Es excelente con los niños.",
       age: 1,
@@ -46,7 +46,7 @@ function AdoptionSection() {
     {
       id: 4,
       name: "Charlie",
-      image: "/placeholder.svg?height=300&width=300",
+      image: require("../assets/images/photo3.avif"),
       description:
         "Charlie es un perro juguetón y cariñoso. Le encanta dar paseos largos.",
       age: 4,
@@ -56,7 +56,7 @@ function AdoptionSection() {
     {
       id: 5,
       name: "Lucy",
-      image: "/placeholder.svg?height=300&width=300",
+      image: require("../assets/images/cat3.avif"),
       description:
         "Lucy es una gata independiente pero cariñosa. Disfruta de la compañía tranquila.",
       age: 2,
