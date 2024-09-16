@@ -63,6 +63,36 @@ function AdoptionSection() {
       breed: "Persa",
       gender: "Hembra",
     },
+    {
+      id: 6,
+      name: "Lyonel",
+      image: require("../assets/images/lyonelG.PNG"),
+      description:
+        "Lyonel es independiente pero cariñoso. Disfruta de la compañía tranquila.",
+      age: 2,
+      breed: "Persa",
+      gender: "Hembra",
+    },
+    {
+      id: 7,
+      name: "Life",
+      image: require("../assets/images/lifeG.PNG"),
+      description:
+        "Life es una gata independiente pero cariñosa. Disfruta de la compañía tranquila.",
+      age: 2,
+      breed: "Persa",
+      gender: "Hembra",
+    },
+    {
+      id: 8,
+      name: "Kala",
+      image: require("../assets/images/kala.PNG"),
+      description:
+        "Kala es una perra cariñosa y juguetona. Le encanta correr y jugar a la pelota.",
+      age: 2,
+      breed: "Labrador",
+      gender: "Hembra",
+    },
   ]
 
   useEffect(() => {
