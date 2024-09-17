@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import { motion, useAnimation, useMotionValue } from "framer-motion"
 import { ChevronLeft, ChevronRight, X } from "lucide-react"
+import { Link } from "react-router-dom"
 
 const CARD_WIDTH = 280
 const CARD_MARGIN = 20
@@ -205,12 +206,12 @@ function AdoptionSection() {
           </button>
         </div>
         <div className="text-center mt-8">
-          <a
-            href="/animals"
+          <Link
+            to="/animals"
             className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
           >
             Ver Todos los Animales
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -246,12 +247,12 @@ function AdoptionSection() {
               </div>
             </div>
             <div className="mt-6">
-              <a
-                href={`/adopt/${selectedAnimal.id}`}
+              <Link
+                to="/animals"
                 className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
               >
                 Adoptar a {selectedAnimal.name}
-              </a>
+              </Link>
             </div>
           </div>
         </div>
