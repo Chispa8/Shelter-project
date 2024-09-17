@@ -25,6 +25,7 @@ function Header() {
   const menuItems = [
     { to: "/animals", text: "Animales en adopción" },
     { to: "/contact", text: "Contacto" },
+    { to: "/store", text: "Tienda" },
     { to: "/events", text: "Eventos y rifas" },
     { to: "/success-stories", text: "Finales felices" },
     { to: "/volunteer", text: "Voluntariado" },

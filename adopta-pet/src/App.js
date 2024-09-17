@@ -10,6 +10,7 @@ import SuccessStories from "./pages/SuccessStories"
 import Volunteer from "./pages/Volunteer"
 import AdoptionConditions from "./pages/AdoptionConditions"
 import Donate from "./pages/Donate"
+import Store from "./pages/Store.js"
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/animals" element={<Animals />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/store" element={<Store />} />
           <Route path="/events" element={<Events />} />
           <Route path="/success-stories" element={<SuccessStories />} />
           <Route path="/volunteer" element={<Volunteer />} />
