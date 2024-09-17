@@ -38,7 +38,13 @@ function Footer() {
           <div className="w-full md:w-1/3">
             <h4 className="text-lg font-semibold mb-2">Síguenos</h4>
             <div className="flex space-x-4">
-              <a href="#" className="hover:text-blue-300" aria-label="Facebook">
+              <a
+                href="https://www.facebook.com/apamimejoramigodecuatropatas/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-300"
+                aria-label="Facebook"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -69,7 +75,9 @@ function Footer() {
                 </svg>
               </a> */}
               <a
-                href="#"
+                href="https://www.instagram.com/a.p.a_mimejoramigo/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-blue-300"
                 aria-label="Instagram"
               >
