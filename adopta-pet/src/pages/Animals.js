@@ -289,6 +289,7 @@ function Animals() {
   })
   const [expandedAnimal, setExpandedAnimal] = useState(null)
   const [adoptionFormAnimal, setAdoptionFormAnimal] = useState(null)
+  const [submitStatus, setSubmitStatus] = useState(null)
 
   useEffect(() => {
     const fetchAnimals = async () => {
@@ -393,15 +394,50 @@ function Animals() {
 
   const handleCloseAdoptionForm = () => {
     setAdoptionFormAnimal(null)
+    setSubmitStatus(null)
   }
 
-  const handleSubmitAdoption = (formData) => {
-    // Aquí iría la lógica para enviar los datos del formulario
-    console.log("Formulario de adopción enviado:", formData)
-    alert(
-      "Solicitud de adopción enviada con éxito. Nos pondremos en contacto contigo pronto."
-    )
-    setAdoptionFormAnimal(null)
+  const handleSubmitAdoption = async (formData) => {
+    setSubmitStatus("sending")
+
+    try {
+      const response = await fetch("/api/send-adoption-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: "juanquigol@gmail.com",
+          subject: `Nueva solicitud de adopción para ${adoptionFormAnimal.name}`,
+          text: `
+            Nombre: ${formData.name}
+            Email: ${formData.email}
+            Teléfono: ${formData.phone}
+            Dirección: ${formData.address}
+            Razón para adoptar: ${formData.reason}
+            
+            Detalles del animal:
+            Nombre: ${adoptionFormAnimal.name}
+            Tipo: ${adoptionFormAnimal.type}
+            Edad: ${adoptionFormAnimal.age} años
+            Color: ${adoptionFormAnimal.color}
+          `,
+        }),
+      })
+
+      if (response.ok) {
+        setSubmitStatus("success")
+        setTimeout(() => {
+          setAdoptionFormAnimal(null)
+          setSubmitStatus(null)
+        }, 3000)
+      } else {
+        throw new Error("Failed to send email")
+      }
+    } catch (error) {
+      console.error("Error sending adoption email:", error)
+      setSubmitStatus("error")
+    }
   }
 
   if (loading) {
@@ -449,6 +485,26 @@ function Animals() {
           />
         )}
       </AnimatePresence>
+      {submitStatus === "success" && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-xl">
+            <p className="text-green-600 font-semibold text-lg">
+              Solicitud de adopción enviada con éxito. Nos pondremos en contacto
+              contigo pronto.
+            </p>
+          </div>
+        </div>
+      )}
+      {submitStatus === "error" && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-xl">
+            <p className="text-red-600 font-semibold text-lg">
+              Error al enviar la solicitud de adopción. Por favor, inténtalo de
+              nuevo más tarde.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

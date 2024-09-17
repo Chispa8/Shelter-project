@@ -18,20 +18,44 @@ function Contact() {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Aquí iría la lógica para enviar el formulario a un servidor
-    console.log("Formulario enviado:", formData)
-    // Simulamos una respuesta exitosa
-    setSubmitStatus("success")
-    // Limpiamos el formulario
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    })
-    // Reseteamos el estado después de 3 segundos
+    setSubmitStatus("sending")
+
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: "shelter-email@mail.com",
+          subject: `Nuevo mensaje de contacto: ${formData.subject}`,
+          text: `
+            Nombre: ${formData.name}
+            Email: ${formData.email}
+            Asunto: ${formData.subject}
+            Mensaje: ${formData.message}
+          `,
+        }),
+      })
+
+      if (response.ok) {
+        setSubmitStatus("success")
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        })
+      } else {
+        throw new Error("Failed to send email")
+      }
+    } catch (error) {
+      console.error("Error sending email:", error)
+      setSubmitStatus("error")
+    }
+
     setTimeout(() => setSubmitStatus(null), 3000)
   }
 
@@ -112,12 +136,18 @@ function Contact() {
             <button
               type="submit"
               className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300"
+              disabled={submitStatus === "sending"}
             >
-              Enviar Mensaje
+              {submitStatus === "sending" ? "Enviando..." : "Enviar Mensaje"}
             </button>
             {submitStatus === "success" && (
               <p className="text-green-600 font-semibold">
                 Mensaje enviado con éxito!
+              </p>
+            )}
+            {submitStatus === "error" && (
+              <p className="text-red-600 font-semibold">
+                Error al enviar el mensaje. Por favor, inténtalo de nuevo.
               </p>
             )}
           </div>
