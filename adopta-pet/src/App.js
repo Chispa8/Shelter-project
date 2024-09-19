@@ -11,6 +11,7 @@ import Volunteer from "./pages/Volunteer"
 import AdoptionConditions from "./pages/AdoptionConditions"
 import Donate from "./pages/Donate"
 import Store from "./pages/Store.js"
+import { db, storage } from "./firebase"
 
 function App() {
   return (

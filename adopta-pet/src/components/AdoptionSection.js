@@ -1,152 +1,46 @@
-import React, { useState, useEffect, useRef } from "react"
-import { motion, useAnimation, useMotionValue } from "framer-motion"
-import { ChevronLeft, ChevronRight, X } from "lucide-react"
+import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-
-const CARD_WIDTH = 280
-const CARD_MARGIN = 20
+import { LazyLoadImage } from "react-lazy-load-image-component"
+import "react-lazy-load-image-component/src/effects/blur.css"
+import { ChevronRight, ChevronLeft } from "lucide-react"
+import { collection, getDocs, limit, query } from "firebase/firestore"
+import { db } from "../firebase"
 
 function AdoptionSection() {
-  const [width, setWidth] = useState(0)
-  const [selectedAnimal, setSelectedAnimal] = useState(null)
-  const carousel = useRef(null)
-  const x = useMotionValue(0)
-  const controls = useAnimation()
-
-  const animals = [
-    {
-      id: 1,
-      name: "Luna",
-      image: require("../assets/images/photo2.avif"),
-      description:
-        "Luna es una perra cariñosa y juguetona. Le encanta correr y jugar a la pelota.",
-      age: 2,
-      breed: "Labrador",
-      gender: "Hembra",
-    },
-    {
-      id: 2,
-      name: "Max",
-      image: require("../assets/images/cat1.avif"),
-      description:
-        "Max es un gato tranquilo y amigable. Disfruta de largas siestas al sol.",
-      age: 3,
-      breed: "Siamés",
-      gender: "Macho",
-    },
-    {
-      id: 3,
-      name: "Bella",
-      image: require("../assets/images/photo1.avif"),
-      description:
-        "Bella es una perra energética y leal. Es excelente con los niños.",
-      age: 1,
-      breed: "Pastor Alemán",
-      gender: "Hembra",
-    },
-    {
-      id: 4,
-      name: "Charlie",
-      image: require("../assets/images/photo3.avif"),
-      description:
-        "Charlie es un perro juguetón y cariñoso. Le encanta dar paseos largos.",
-      age: 4,
-      breed: "Golden Retriever",
-      gender: "Macho",
-    },
-    {
-      id: 5,
-      name: "Lucy",
-      image: require("../assets/images/cat3.avif"),
-      description:
-        "Lucy es una gata independiente pero cariñosa. Disfruta de la compañía tranquila.",
-      age: 2,
-      breed: "Persa",
-      gender: "Hembra",
-    },
-    {
-      id: 6,
-      name: "Lyonel",
-      image: require("../assets/images/lyonelG.PNG"),
-      description:
-        "Lyonel es independiente pero cariñoso. Disfruta de la compañía tranquila.",
-      age: 2,
-      breed: "Persa",
-      gender: "Hembra",
-    },
-    {
-      id: 7,
-      name: "Life",
-      image: require("../assets/images/lifeG.PNG"),
-      description:
-        "Life es una gata independiente pero cariñosa. Disfruta de la compañía tranquila.",
-      age: 2,
-      breed: "Persa",
-      gender: "Hembra",
-    },
-    {
-      id: 8,
-      name: "Kala",
-      image: require("../assets/images/kala.PNG"),
-      description:
-        "Kala es una perra cariñosa y juguetona. Le encanta correr y jugar a la pelota.",
-      age: 2,
-      breed: "Labrador",
-      gender: "Hembra",
-    },
-  ]
+  const [animals, setAnimals] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
-    setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth)
+    const fetchAnimals = async () => {
+      try {
+        const animalsCollection = collection(db, "animals")
+        const animalsQuery = query(animalsCollection, limit(5))
+        const animalsSnapshot = await getDocs(animalsQuery)
+        const animalsList = animalsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        setAnimals(animalsList)
+        setLoading(false)
+      } catch (err) {
+        console.error("Error fetching animals:", err)
+        setError(
+          "Error al cargar los animales. Por favor, intenta de nuevo más tarde."
+        )
+        setLoading(false)
+      }
+    }
+
+    fetchAnimals()
   }, [])
 
-  const handleDragEnd = (event, info) => {
-    const direction = info.velocity.x < 0 ? 1 : -1
-    const moveBy = direction * (CARD_WIDTH + CARD_MARGIN)
-
-    const newX = x.get() + moveBy
-    const edge = -width
-
-    if (newX > 0) {
-      controls.start({
-        x: 0,
-        transition: { type: "spring", stiffness: 300, damping: 30 },
-      })
-    } else if (newX < edge) {
-      controls.start({
-        x: edge,
-        transition: { type: "spring", stiffness: 300, damping: 30 },
-      })
-    } else {
-      controls.start({
-        x: newX,
-        transition: { type: "spring", stiffness: 300, damping: 30 },
-      })
-    }
+  if (loading) {
+    return <div className="text-center py-10">Cargando animales...</div>
   }
 
-  const handleNext = () => {
-    const newX = Math.max(x.get() - (CARD_WIDTH + CARD_MARGIN), -width)
-    controls.start({
-      x: newX,
-      transition: { type: "spring", stiffness: 300, damping: 30 },
-    })
-  }
-
-  const handlePrev = () => {
-    const newX = Math.min(x.get() + (CARD_WIDTH + CARD_MARGIN), 0)
-    controls.start({
-      x: newX,
-      transition: { type: "spring", stiffness: 300, damping: 30 },
-    })
-  }
-
-  const handleAnimalClick = (animal) => {
-    setSelectedAnimal(animal)
-  }
-
-  const closeAnimalDetails = () => {
-    setSelectedAnimal(null)
+  if (error) {
+    return <div className="text-center py-10 text-red-600">{error}</div>
   }
 
   return (
@@ -155,52 +49,45 @@ function AdoptionSection() {
         <h2 className="text-3xl font-bold text-center mb-10">
           Animales en Adopción
         </h2>
-        <div className="relative overflow-hidden">
-          <motion.div
-            ref={carousel}
-            className="cursor-grab active:cursor-grabbing"
-            whileTap={{ cursor: "grabbing" }}
-          >
-            <motion.div
-              drag="x"
-              dragConstraints={{ right: 0, left: -width }}
-              onDragEnd={handleDragEnd}
-              animate={controls}
-              style={{ x }}
-              className="flex"
-            >
-              {animals.map((animal) => (
-                <motion.div
-                  key={animal.id}
-                  className="min-w-[280px] mr-5 p-4 bg-white rounded-lg shadow-md"
-                >
-                  <img
-                    src={animal.image}
+        <div className="relative">
+          <div className="flex overflow-x-auto space-x-4 pb-4">
+            {animals.map((animal) => (
+              <div
+                key={animal.id}
+                className="flex-shrink-0 w-64 bg-white rounded-lg shadow-md overflow-hidden"
+              >
+                <div className="p-4">
+                  <LazyLoadImage
+                    src={
+                      animal.imageUrl || "/placeholder.svg?height=200&width=200"
+                    }
                     alt={animal.name}
+                    effect="blur"
                     className="w-full h-48 object-cover rounded-md mb-4"
                   />
-                  <h3 className="text-xl font-semibold mb-2">{animal.name}</h3>
-                  <button
-                    onClick={() => handleAnimalClick(animal)}
-                    className="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
+                  <h3 className="text-lg font-semibold">{animal.name}</h3>
+                  <p className="text-sm text-gray-600">
+                    {animal.type} • {animal.age} años
+                  </p>
+                  <Link
+                    to={`/animals#${animal.id}`}
+                    className="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 inline-block"
                   >
                     Conoce a {animal.name}
-                  </button>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
           <button
-            onClick={handlePrev}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md"
-            aria-label="Anterior animal"
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md"
+            aria-label="Desplazar a la izquierda"
           >
             <ChevronLeft size={24} />
           </button>
           <button
-            onClick={handleNext}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md"
-            aria-label="Siguiente animal"
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md"
+            aria-label="Desplazar a la derecha"
           >
             <ChevronRight size={24} />
           </button>
@@ -208,55 +95,12 @@ function AdoptionSection() {
         <div className="text-center mt-8">
           <Link
             to="/animals"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
+            className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
           >
             Ver Todos los Animales
           </Link>
         </div>
       </div>
-
-      {selectedAnimal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg p-8 max-w-2xl w-full relative">
-            <button
-              onClick={closeAnimalDetails}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
-              aria-label="Cerrar detalles del animal"
-            >
-              <X size={24} />
-            </button>
-            <img
-              src={selectedAnimal.image}
-              alt={selectedAnimal.name}
-              className="w-full h-64 object-cover rounded-lg mb-4"
-            />
-            <h3 className="text-2xl font-bold mb-2">{selectedAnimal.name}</h3>
-            <p className="text-gray-600 mb-4">{selectedAnimal.description}</p>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="font-semibold">Edad:</p>
-                <p>{selectedAnimal.age} años</p>
-              </div>
-              <div>
-                <p className="font-semibold">Raza:</p>
-                <p>{selectedAnimal.breed}</p>
-              </div>
-              <div>
-                <p className="font-semibold">Género:</p>
-                <p>{selectedAnimal.gender}</p>
-              </div>
-            </div>
-            <div className="mt-6">
-              <Link
-                to="/animals"
-                className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-              >
-                Adoptar a {selectedAnimal.name}
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   )
 }

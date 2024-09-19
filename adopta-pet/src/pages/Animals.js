@@ -3,23 +3,27 @@ import { LazyLoadImage } from "react-lazy-load-image-component"
 import "react-lazy-load-image-component/src/effects/blur.css"
 import { motion, AnimatePresence } from "framer-motion"
 import { X } from "lucide-react"
+import { collection, getDocs } from "firebase/firestore"
+import { db } from "../firebase"
 
 function AnimalCard({ animal, onExpand }) {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 w-64">
-      {/* Añadimos padding al contenedor de la imagen */}
+    <div
+      id={animal.id}
+      className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 w-64"
+    >
       <div className="p-2">
         <LazyLoadImage
           alt={animal.name}
-          src={animal.image}
+          src={animal.imageUrl || "/placeholder.svg?height=200&width=200"}
           effect="blur"
-          className="w-full h-48 object-cover rounded-lg" // Añadimos borde redondeado a la imagen
+          className="w-full h-48 object-cover rounded-lg"
         />
       </div>
       <div className="p-4">
         <h3 className="text-xl font-semibold mb-2">{animal.name}</h3>
         <p className="text-gray-600 mb-2">
-          {animal.type} • {animal.age} años • {animal.color}
+          {animal.type} • {animal.age} años • {animal.breed}
         </p>
         <button
           onClick={() => onExpand(animal)}
@@ -49,12 +53,12 @@ function ExpandedAnimalCard({ animal, onClose, onAdopt }) {
           <X size={24} />
         </button>
         <img
-          src={animal.image}
+          src={animal.imageUrl || "/placeholder.svg?height=200&width=200"}
           alt={animal.name}
           className="w-full h-64 object-cover rounded-lg mb-4"
         />
         <h3 className="text-2xl font-bold mb-2">{animal.name}</h3>
-        <p className="text-gray-600 mb-4">{animal.description}</p>
+        <p className="text-gray-600 mb-4">{animal.lookingFor}</p>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <p className="font-semibold">Edad:</p>
@@ -65,8 +69,16 @@ function ExpandedAnimalCard({ animal, onClose, onAdopt }) {
             <p>{animal.type}</p>
           </div>
           <div>
-            <p className="font-semibold">Color:</p>
-            <p>{animal.color}</p>
+            <p className="font-semibold">Raza:</p>
+            <p>{animal.breed}</p>
+          </div>
+          <div>
+            <p className="font-semibold">Tamaño:</p>
+            <p>{animal.size}</p>
+          </div>
+          <div>
+            <p className="font-semibold">Salud:</p>
+            <p>{animal.health}</p>
           </div>
         </div>
         <div className="mt-6">
@@ -260,14 +272,14 @@ function FilterSection({ filters, setFilters }) {
           />
         </div>
         <div>
-          <label htmlFor="color" className="block mb-2">
-            Color
+          <label htmlFor="breed" className="block mb-2">
+            Raza
           </label>
           <input
             type="text"
-            id="color"
-            name="color"
-            value={filters.color}
+            id="breed"
+            name="breed"
+            value={filters.breed}
             onChange={handleFilterChange}
             className="w-full p-2 border rounded"
           />
@@ -285,7 +297,7 @@ function Animals() {
   const [filters, setFilters] = useState({
     type: "",
     age: "",
-    color: "",
+    breed: "",
   })
   const [expandedAnimal, setExpandedAnimal] = useState(null)
   const [adoptionFormAnimal, setAdoptionFormAnimal] = useState(null)
@@ -294,69 +306,17 @@ function Animals() {
   useEffect(() => {
     const fetchAnimals = async () => {
       try {
-        // Simulamos una llamada a una API
-        const response = await new Promise((resolve) =>
-          setTimeout(
-            () =>
-              resolve([
-                {
-                  id: 1,
-                  name: "Byron",
-                  type: "Perro",
-                  age: 2,
-                  color: "Blanco",
-                  image: require("../assets/images/byron.PNG"),
-                  description:
-                    "Byron es una perro cariñoso y juguetón. Le encanta correr y jugar a la pelota.",
-                },
-                {
-                  id: 2,
-                  name: "Life",
-                  type: "Gato",
-                  age: 1,
-                  color: "Naranja",
-                  image: require("../assets/images/lifeG.PNG"),
-                  description:
-                    "Life es un gato tranquilo y amigable. Disfruta de largas siestas al sol.",
-                },
-                {
-                  id: 3,
-                  name: "Kala",
-                  type: "Perro",
-                  age: 3,
-                  color: "Marrón",
-                  image: require("../assets/images/kala.PNG"),
-                  description:
-                    "Kala es enérgica y leal. Es excelente con los niños y le encanta jugar.",
-                },
-                {
-                  id: 4,
-                  name: "Lyonel",
-                  type: "Gato",
-                  age: 2,
-                  color: "Negro",
-                  image: require("../assets/images/lyonelG.PNG"),
-                  description:
-                    "Lyonel es un gato curioso y juguetón. Le encanta explorar y jugar con juguetes interactivos.",
-                },
-                {
-                  id: 5,
-                  name: "Pluto",
-                  type: "Perro",
-                  age: 4,
-                  color: "Dorado",
-                  image: require("../assets/images/pluto.PNG"),
-                  description:
-                    "Pluto es dulce y tranquilo. Disfruta de paseos tranquilos y mimos.",
-                },
-              ]),
-            1000
-          )
-        )
-        setAnimals(response)
-        setFilteredAnimals(response)
+        const animalsCollection = collection(db, "animals")
+        const animalsSnapshot = await getDocs(animalsCollection)
+        const animalsList = animalsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        setAnimals(animalsList)
+        setFilteredAnimals(animalsList)
         setLoading(false)
       } catch (err) {
+        console.error("Error fetching animals:", err)
         setError(
           "Error al cargar los animales. Por favor, intenta de nuevo más tarde."
         )
@@ -372,8 +332,8 @@ function Animals() {
       return (
         (filters.type === "" || animal.type === filters.type) &&
         (filters.age === "" || animal.age <= parseInt(filters.age)) &&
-        (filters.color === "" ||
-          animal.color.toLowerCase().includes(filters.color.toLowerCase()))
+        (filters.breed === "" ||
+          animal.breed.toLowerCase().includes(filters.breed.toLowerCase()))
       )
     })
     setFilteredAnimals(filtered)
@@ -420,7 +380,7 @@ function Animals() {
             Nombre: ${adoptionFormAnimal.name}
             Tipo: ${adoptionFormAnimal.type}
             Edad: ${adoptionFormAnimal.age} años
-            Color: ${adoptionFormAnimal.color}
+            Raza: ${adoptionFormAnimal.breed}
           `,
         }),
       })
