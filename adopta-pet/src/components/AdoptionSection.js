@@ -56,15 +56,18 @@ function AdoptionSection() {
                 key={animal.id}
                 className="flex-shrink-0 w-64 bg-white rounded-lg shadow-md overflow-hidden"
               >
-                <div className="p-4">
-                  <LazyLoadImage
-                    src={
-                      animal.imageUrl || "/placeholder.svg?height=200&width=200"
-                    }
-                    alt={animal.name}
-                    effect="blur"
-                    className="w-full h-48 object-cover rounded-md mb-4"
-                  />
+                <div className="p-4 flex flex-col items-center">
+                  <div className="w-full h-48 flex justify-center items-center overflow-hidden rounded-md mb-4">
+                    <LazyLoadImage
+                      src={
+                        animal.imageUrl ||
+                        "/placeholder.svg?height=200&width=200"
+                      }
+                      alt={animal.name}
+                      effect="blur"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                   <h3 className="text-lg font-semibold">{animal.name}</h3>
                   <p className="text-sm text-gray-600">
                     {animal.type} • {animal.age} años
