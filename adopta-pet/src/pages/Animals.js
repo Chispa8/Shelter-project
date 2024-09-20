@@ -12,7 +12,7 @@ function AnimalCard({ animal, onExpand }) {
       id={animal.id}
       className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 w-64"
     >
-      <div className="p-2">
+      <div className="p-2 flex justify-center">
         <LazyLoadImage
           alt={animal.name}
           src={animal.imageUrl || "/placeholder.svg?height=200&width=200"}
@@ -27,7 +27,7 @@ function AnimalCard({ animal, onExpand }) {
         </p>
         <button
           onClick={() => onExpand(animal)}
-          className="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 inline-block"
+          className="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 inline-block w-full"
         >
           Conoce a {animal.name}
         </button>
@@ -44,22 +44,24 @@ function ExpandedAnimalCard({ animal, onClose, onAdopt }) {
       exit={{ opacity: 0 }}
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
     >
-      <div className="bg-white rounded-lg p-8 max-w-2xl w-full relative">
+      <div className="bg-white rounded-lg p-6 max-w-md w-full relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
           aria-label="Cerrar detalles del animal"
         >
           <X size={24} />
         </button>
-        <img
-          src={animal.imageUrl || "/placeholder.svg?height=200&width=200"}
-          alt={animal.name}
-          className="w-full h-64 object-cover rounded-lg mb-4"
-        />
-        <h3 className="text-2xl font-bold mb-2">{animal.name}</h3>
+        <div className="flex justify-center mb-4">
+          <img
+            src={animal.imageUrl || "/placeholder.svg?height=200&width=200"}
+            alt={animal.name}
+            className="w-full h-48 object-cover rounded-lg"
+          />
+        </div>
+        <h3 className="text-xl font-bold mb-2">{animal.name}</h3>
         <p className="text-gray-600 mb-4">{animal.lookingFor}</p>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-2 text-sm">
           <div>
             <p className="font-semibold">Edad:</p>
             <p>{animal.age} años</p>
@@ -81,10 +83,10 @@ function ExpandedAnimalCard({ animal, onClose, onAdopt }) {
             <p>{animal.health}</p>
           </div>
         </div>
-        <div className="mt-6">
+        <div className="mt-4">
           <button
             onClick={() => onAdopt(animal)}
-            className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 w-full"
           >
             Adoptar a {animal.name}
           </button>
@@ -123,20 +125,20 @@ function AdoptionForm({ animal, onClose, onSubmit }) {
       exit={{ opacity: 0 }}
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
     >
-      <div className="bg-white rounded-lg p-8 max-w-2xl w-full relative">
+      <div className="bg-white rounded-lg p-6 max-w-md w-full relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
           aria-label="Cerrar formulario de adopción"
         >
           <X size={24} />
         </button>
-        <h2 className="text-2xl font-bold mb-4">Adoptar a {animal.name}</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
+        <h2 className="text-xl font-bold mb-4">Adoptar a {animal.name}</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
             <label
               htmlFor="name"
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 text-sm font-bold mb-1"
             >
               Nombre completo
             </label>
@@ -150,10 +152,10 @@ function AdoptionForm({ animal, onClose, onSubmit }) {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
-          <div className="mb-4">
+          <div>
             <label
               htmlFor="email"
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 text-sm font-bold mb-1"
             >
               Correo electrónico
             </label>
@@ -167,10 +169,10 @@ function AdoptionForm({ animal, onClose, onSubmit }) {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
-          <div className="mb-4">
+          <div>
             <label
               htmlFor="phone"
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 text-sm font-bold mb-1"
             >
               Teléfono
             </label>
@@ -184,10 +186,10 @@ function AdoptionForm({ animal, onClose, onSubmit }) {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
-          <div className="mb-4">
+          <div>
             <label
               htmlFor="address"
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 text-sm font-bold mb-1"
             >
               Dirección
             </label>
@@ -201,10 +203,10 @@ function AdoptionForm({ animal, onClose, onSubmit }) {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
-          <div className="mb-6">
+          <div>
             <label
               htmlFor="reason"
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 text-sm font-bold mb-1"
             >
               ¿Por qué quieres adoptar a {animal.name}?
             </label>
@@ -214,13 +216,13 @@ function AdoptionForm({ animal, onClose, onSubmit }) {
               value={formData.reason}
               onChange={handleChange}
               required
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-24"
             ></textarea>
           </div>
-          <div className="flex items-center justify-between">
+          <div>
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
             >
               Enviar solicitud de adopción
             </button>
