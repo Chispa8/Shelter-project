@@ -5,8 +5,28 @@ import { motion, AnimatePresence } from "framer-motion"
 import { X } from "lucide-react"
 import { collection, getDocs } from "firebase/firestore"
 import { db } from "../firebase"
+import dogToyImage from "../assets/images/dog-toy.png"
+import ballOfWoolImage from "../assets/images/ball-of-wool.png"
 
 function AnimalCard({ animal, onExpand }) {
+  const isAnimalDog = animal.type.toLowerCase() === "perro"
+  const isAnimalCat = animal.type.toLowerCase() === "gato"
+
+  const iconImage = isAnimalDog
+    ? dogToyImage
+    : isAnimalCat
+    ? ballOfWoolImage
+    : null
+
+  const rotate = {
+    rotate: [0, 10, 0, -10, 0],
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  }
+
   return (
     <div
       id={animal.id}
@@ -27,9 +47,25 @@ function AnimalCard({ animal, onExpand }) {
         </p>
         <button
           onClick={() => onExpand(animal)}
-          className="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 inline-block w-full"
+          className="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 flex items-center justify-center w-full relative"
         >
-          Conoce a {animal.name}
+          {iconImage && (
+            <motion.img
+              src={iconImage}
+              alt=""
+              className="absolute left-4 top-3 w-6 h-6"
+              animate={rotate}
+            />
+          )}
+          <span className="mx-auto">Conoce a {animal.name}</span>
+          {iconImage && (
+            <motion.img
+              src={iconImage}
+              alt=""
+              className="absolute right-4 top-2 w-6 h-6"
+              animate={rotate}
+            />
+          )}
         </button>
       </div>
     </div>
