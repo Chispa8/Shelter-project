@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { motion } from "framer-motion"
 import Typewriter from "typewriter-effect"
 import VideoSection from "../components/VideoSection"
 import DonationSection from "../components/DonationSection"

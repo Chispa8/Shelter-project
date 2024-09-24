@@ -5,17 +5,20 @@ import { motion, AnimatePresence } from "framer-motion"
 import { X } from "lucide-react"
 import { collection, getDocs } from "firebase/firestore"
 import { db } from "../firebase"
-import dogToyImage from "../assets/images/dog-toy.png"
-import ballOfWoolImage from "../assets/images/ball-of-wool.png"
+
+const dogToyImageUrl =
+  "https://firebasestorage.googleapis.com/v0/b/shelter-app-e67e8.appspot.com/o/icons%2Fdog-toy.png?alt=media&token=016a3eb2-0cbd-4d89-965d-b429c4874415"
+const ballOfWoolImageUrl =
+  "https://firebasestorage.googleapis.com/v0/b/shelter-app-e67e8.appspot.com/o/icons%2Fball-of-wool.png?alt=media&token=020409c1-007b-4d51-a99c-be69289657d7"
 
 function AnimalCard({ animal, onExpand }) {
   const isAnimalDog = animal.type.toLowerCase() === "perro"
   const isAnimalCat = animal.type.toLowerCase() === "gato"
 
   const iconImage = isAnimalDog
-    ? dogToyImage
+    ? dogToyImageUrl
     : isAnimalCat
-    ? ballOfWoolImage
+    ? ballOfWoolImageUrl
     : null
 
   const rotate = {
@@ -53,7 +56,7 @@ function AnimalCard({ animal, onExpand }) {
             <motion.img
               src={iconImage}
               alt=""
-              className="absolute left-4 top-3 w-6 h-6"
+              className="absolute left-4 top-2 w-6 h-6"
               animate={rotate}
             />
           )}
