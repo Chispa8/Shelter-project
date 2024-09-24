@@ -1,20 +1,30 @@
-import React, { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import React, { useState, useEffect, useRef } from "react"
+import { Link, useLocation } from "react-router-dom"
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
+import { motion } from "framer-motion"
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1100)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const location = useLocation()
+  const menuRef = useRef(null)
 
   useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth < 1100)
     }
 
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+
     window.addEventListener("resize", handleResize)
+    window.addEventListener("scroll", handleScroll)
 
     return () => {
       window.removeEventListener("resize", handleResize)
+      window.removeEventListener("scroll", handleScroll)
     }
   }, [])
 
@@ -33,7 +43,11 @@ function Header() {
   ]
 
   return (
-    <header className="bg-blue-600 text-white">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-blue-600 bg-opacity-80" : "bg-blue-600"
+      }`}
+    >
       <nav
         className="container mx-auto px-4 py-4"
         aria-label="Navegación principal"
@@ -41,7 +55,7 @@ function Header() {
         <div className="flex justify-between items-center">
           <Link
             to="/"
-            className="text-2xl font-bold"
+            className="text-2xl font-bold text-white"
             aria-label="Inicio de AdoptaPet"
           >
             AdoptaPet
@@ -65,16 +79,37 @@ function Header() {
               className="space-x-4"
               role="menubar"
               aria-label="Opciones de navegación"
+              ref={menuRef}
             >
               {menuItems.map((item) => (
-                <Link
+                <motion.div
                   key={item.to}
-                  to={item.to}
-                  className="hover:underline"
-                  role="menuitem"
+                  className="inline-block"
+                  whileHover={{ y: -2 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 >
-                  {item.text}
-                </Link>
+                  <Link
+                    to={item.to}
+                    className={`relative text-white transition-colors duration-300 py-2 px-1 ${
+                      location.pathname === item.to ? "font-bold" : ""
+                    }`}
+                    role="menuitem"
+                  >
+                    {item.text}
+                    {location.pathname === item.to && (
+                      <motion.div
+                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-white"
+                        layoutId="underline"
+                        initial={false}
+                        transition={{
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 30,
+                        }}
+                      />
+                    )}
+                  </Link>
+                </motion.div>
               ))}
             </div>
           )}
@@ -90,7 +125,7 @@ function Header() {
               <Link
                 key={item.to}
                 to={item.to}
-                className="block py-2 hover:bg-blue-700"
+                className="block py-2 text-white hover:bg-blue-700 transition-colors duration-300"
                 onClick={() => setIsMenuOpen(false)}
                 role="menuitem"
               >
