@@ -60,8 +60,19 @@ function Contact() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6 text-center">Contáctanos</h1>
+    <div
+      className="container mx-auto px-4 py-8"
+      style={{
+        backgroundColor: "#FFEFD5",
+        /* backgroundImage:
+        "url('https://firebasestorage.googleapis.com/v0/b/shelter-app-e67e8.appspot.com/o/icons%2FFondo-Animals.webp?alt=media&token=e4c9fcb1-2334-44c8-8550-df30bcd7807f')",
+       */ backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <h1 className="text-3xl font-bold mb-6 text-center text-[#8B4513]">
+        Contáctanos
+      </h1>
       <div className="max-w-lg mx-auto bg-white rounded-lg shadow-md p-6">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

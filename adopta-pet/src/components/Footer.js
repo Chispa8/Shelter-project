@@ -4,46 +4,62 @@ import PrivacyPolicy from "./PrivacyPolicy"
 
 function Footer() {
   return (
-    <footer className="bg-blue-800 text-white py-8">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-wrap justify-between items-center">
-          <div className="w-full md:w-1/3 mb-6 md:mb-0">
+    <footer className="bg-[#FCD0A1] text-[#FCD0A1] py-8 relative">
+      <div className="container mx-auto px-4 relative">
+        <div className="flex flex-wrap justify-between items-start md:items-center">
+          <div className="w-full sm:w-1/2 lg:w-1/3 mb-6 sm:mb-0">
             <h3 className="text-xl font-bold mb-2">AdoptaPet</h3>
-            <p className="text-sm">Cambiando vidas, patita a patita.</p>
+            <p className="text-sm text-[#A690A4] font-semibold">
+              Cambiando vidas, patita a patita.
+            </p>
           </div>
-          <div className="w-full md:w-1/3 mb-6 md:mb-0">
-            <h4 className="text-lg font-semibold mb-2">Enlaces rápidos</h4>
+
+          <div className="w-full sm:w-1/2 lg:w-1/3 mb-6 sm:mb-0">
+            <h4 className="text-lg font-bold mb-2">Enlaces rápidos</h4>
             <ul className="space-y-2">
               <li>
-                <a href="/animals" className="hover:underline">
+                <a
+                  href="/animals"
+                  className="text-[#A690A4] hover:text-[#8B4513] font-semibold transition-colors duration-300"
+                >
                   Animales en adopción
                 </a>
               </li>
               <li>
-                <a href="/volunteer" className="hover:underline">
+                <a
+                  href="/volunteer"
+                  className="text-[#A690A4] hover:text-[#8B4513] font-semibold transition-colors duration-300"
+                >
                   Voluntariado
                 </a>
               </li>
               <li>
-                <a href="/donate" className="hover:underline">
+                <a
+                  href="/donate"
+                  className="text-[#A690A4] hover:text-[#8B4513] font-semibold transition-colors duration-300"
+                >
                   Donar
                 </a>
               </li>
               <li>
-                <a href="/contact" className="hover:underline">
+                <a
+                  href="/contact"
+                  className="text-[#A690A4] hover:text-[#8B4513] font-semibold transition-colors duration-300"
+                >
                   Contacto
                 </a>
               </li>
             </ul>
           </div>
-          <div className="w-full md:w-1/3">
-            <h4 className="text-lg font-semibold mb-2">Síguenos</h4>
+
+          <div className="w-full sm:w-1/2 lg:w-1/3">
+            <h4 className="text-lg font-bold mb-2">Síguenos</h4>
             <div className="flex space-x-4">
               <motion.a
                 href="https://www.facebook.com/apamimejoramigodecuatropatas/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-blue-300"
+                className="text-[#A690A4] hover:text-[#8B4513] transition-colors duration-300"
                 aria-label="Facebook"
                 whileHover={{ y: -2 }}
                 transition={{ type: "spring", stiffness: 300 }}
@@ -66,7 +82,7 @@ function Footer() {
                 href="https://www.instagram.com/a.p.a_mimejoramigo/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-blue-300"
+                className="text-[#A690A4] hover:text-[#8B4513] transition-colors duration-300"
                 aria-label="Instagram"
                 whileHover={{ y: -2 }}
                 transition={{ type: "spring", stiffness: 300 }}
@@ -90,17 +106,21 @@ function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-8 pt-8 border-t border-blue-700 text-center text-sm">
+
+        <div className="mt-8 pt-8 border-t text-[#A690A4] font-semibold border-[#FCD0A1] text-center text-sm">
           <p>&copy; 2023 AdoptaPet. Todos los derechos reservados.</p>
           <div className="mt-2">
             <PrivacyPolicy />
-            {/* <span className="mx-2">|</span>
-            <a href="/terms" className="hover:underline">
-              Términos de Uso
-            </a> */}
           </div>
         </div>
       </div>
+
+      {/* Imagen en la esquina inferior derecha */}
+      <img
+        src="https://firebasestorage.googleapis.com/v0/b/shelter-app-e67e8.appspot.com/o/icons%2FPerro-gato.PNG?alt=media&token=bfe80e24-a357-4030-96de-b443fe573c67"
+        alt="Perro y gato"
+        className="absolute bottom-0 right-0 w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 lg:w-60 lg:h-60 object-contain opacity-90 z-0"
+      />
     </footer>
   )
 }

@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-primary: #49c891;
+  --color-secondary: #fcd0a1;
+  --color-accent: #a690a4;
+  --color-text: #333333;
+  --color-background: #ffffff;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -9,6 +17,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
 
 code {
@@ -21,7 +31,7 @@ body {
 }
 
 main {
-  padding-top: 2rem; /* Add additional space to the main content */
+  padding-top: 2rem;
 }
 
 h1,
@@ -30,5 +40,15 @@ h3,
 h4,
 h5,
 h6 {
-  margin-top: 1.5rem; /* Add space above headings */
+  margin-top: 1.5rem;
+  color: var(--color-accent);
+}
+
+a {
+  color: var(--color-primary);
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-accent);
 }

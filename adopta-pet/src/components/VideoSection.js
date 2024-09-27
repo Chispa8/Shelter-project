@@ -3,9 +3,10 @@ import HeroVideoDialog from "./magicui/hero-video-dialog"
 
 function VideoSection() {
   return (
-    <section className="py-20 bg-gray-100">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-10">
+    <section className="py-20 bg-[#FCD0A1] relative">
+      {/* Contenedor del contenido principal */}
+      <div className="container mx-auto px-4 relative z-10">
+        <h2 className="text-3xl font-bold text-center mb-10 text-[#A690A4]">
           Conoce Nuestra Labor
         </h2>
         <div className="max-w-4xl mx-auto">
@@ -17,7 +18,7 @@ function VideoSection() {
             thumbnailAlt="Video de nuestra labor en adopción de animales"
           />
         </div>
-        <p className="text-center mt-8 text-lg text-gray-700">
+        <p className="text-center font-bold mt-8 text-lg text-[#A690A4]">
           Descubre cómo nuestro trabajo está cambiando vidas, tanto de animales
           como de personas.
         </p>

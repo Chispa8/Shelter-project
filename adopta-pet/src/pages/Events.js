@@ -29,8 +29,19 @@ function Events() {
   ]
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6 text-center">Eventos y Rifas</h1>
+    <div
+      className="container mx-auto px-4 py-8"
+      style={{
+        backgroundColor: "#FFEFD5",
+        /* backgroundImage:
+        "url('https://firebasestorage.googleapis.com/v0/b/shelter-app-e67e8.appspot.com/o/icons%2FFondo-Animals.webp?alt=media&token=e4c9fcb1-2334-44c8-8550-df30bcd7807f')",
+       */ backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <h1 className="text-3xl font-bold mb-6 text-center text-[#8B4513]">
+        Eventos y Rifas
+      </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {events.map((event) => (
           <div

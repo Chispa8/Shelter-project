@@ -44,18 +44,20 @@ function AnimalCard({ animal, onExpand }) {
         />
       </div>
       <div className="p-4">
-        <h3 className="text-xl font-semibold mb-2">{animal.name}</h3>
-        <p className="text-gray-600 mb-2">
+        <h3 className="text-xl text-[#8B4513] font-semibold mb-2">
+          {animal.name}
+        </h3>
+        <p className="text-[#8B4513] font-semibold mb-2">
           {animal.type} • {animal.age} años • {animal.breed}
         </p>
         <button
           onClick={() => onExpand(animal)}
-          className="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 flex items-center justify-center w-full relative"
+          className="mt-2 bg-[#A4683C] hover:bg-[#FCD0A1] text-[#FCD0A1] hover:text-[#A4683C] font-bold py-2 px-4 rounded-full transition duration-300 flex items-center justify-center w-full relative"
         >
           {iconImage && (
             <motion.img
               src={iconImage}
-              alt=""
+              alt="icon"
               className="absolute left-4 top-2 w-6 h-6"
               animate={rotate}
             />
@@ -64,7 +66,7 @@ function AnimalCard({ animal, onExpand }) {
           {iconImage && (
             <motion.img
               src={iconImage}
-              alt=""
+              alt="icon"
               className="absolute right-4 top-2 w-6 h-6"
               animate={rotate}
             />
@@ -125,7 +127,7 @@ function ExpandedAnimalCard({ animal, onClose, onAdopt }) {
         <div className="mt-4">
           <button
             onClick={() => onAdopt(animal)}
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 w-full"
+            className="bg-[#49C891] text-white px-4 py-2 rounded-lg hover:bg-[#A690A4] transition duration-300 w-full"
           >
             Adoptar a {animal.name}
           </button>
@@ -247,7 +249,7 @@ function AdoptionForm({ animal, onClose, onSubmit }) {
               htmlFor="reason"
               className="block text-gray-700 text-sm font-bold mb-1"
             >
-              ¿Por qué quieres adoptar a {animal.name}?
+              Razón para adoptar
             </label>
             <textarea
               id="reason"
@@ -255,17 +257,15 @@ function AdoptionForm({ animal, onClose, onSubmit }) {
               value={formData.reason}
               onChange={handleChange}
               required
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-24"
-            ></textarea>
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
           </div>
-          <div>
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
-            >
-              Enviar solicitud de adopción
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="bg-[#49C891] text-white px-4 py-2 rounded-lg hover:bg-[#A690A4] transition duration-300 w-full"
+          >
+            Enviar solicitud de adopción
+          </button>
         </form>
       </div>
     </motion.div>
@@ -279,11 +279,11 @@ function FilterSection({ filters, setFilters }) {
   }
 
   return (
-    <div className="bg-gray-100 p-4 rounded-lg mb-6">
-      <h2 className="text-xl font-semibold mb-4">Filtros</h2>
+    <div className="bg-[#8B4513] bg-opacity-80 p-4 rounded-lg mb-6">
+      <h2 className="text-xl font-semibold mb-4 text-[#FCD0A1]">Filtros</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
-          <label htmlFor="type" className="block mb-2">
+          <label htmlFor="type" className="block mb-2 text-[#FCD0A1]">
             Tipo de animal
           </label>
           <select
@@ -291,7 +291,7 @@ function FilterSection({ filters, setFilters }) {
             name="type"
             value={filters.type}
             onChange={handleFilterChange}
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded text-[#8B4513]"
           >
             <option value="">Todos</option>
             <option value="Perro">Perro</option>
@@ -299,7 +299,7 @@ function FilterSection({ filters, setFilters }) {
           </select>
         </div>
         <div>
-          <label htmlFor="age" className="block mb-2">
+          <label htmlFor="age" className="block mb-2 text-[#FCD0A1]">
             Edad máxima
           </label>
           <input
@@ -309,11 +309,11 @@ function FilterSection({ filters, setFilters }) {
             value={filters.age}
             onChange={handleFilterChange}
             min="0"
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded text-[#8B4513]"
           />
         </div>
         <div>
-          <label htmlFor="breed" className="block mb-2">
+          <label htmlFor="breed" className="block mb-2 text-[#FCD0A1]">
             Raza
           </label>
           <input
@@ -322,7 +322,7 @@ function FilterSection({ filters, setFilters }) {
             name="breed"
             value={filters.breed}
             onChange={handleFilterChange}
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded text-[#8B4513]"
           />
         </div>
       </div>
@@ -450,17 +450,24 @@ function Animals() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6 text-center">
-        Animales Disponibles para Adopción
-      </h1>
-      <FilterSection filters={filters} setFilters={setFilters} />
-      {filteredAnimals.length === 0 ? (
-        <p className="text-center text-gray-600">
-          No se encontraron animales con los filtros seleccionados.
-        </p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
+    <div
+      className="min-h-screen py-8"
+      style={{
+        backgroundColor: "#FFEFD5",
+        /* backgroundImage:
+          "url('https://firebasestorage.googleapis.com/v0/b/shelter-app-e67e8.appspot.com/o/icons%2FFondo-Animals.webp?alt=media&token=e4c9fcb1-2334-44c8-8550-df30bcd7807f')",
+         */ backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className="container mx-auto px-4">
+        <h1 className="text-3xl font-bold mb-6 text-center text-[#8B4513]">
+          Animales Disponibles para Adopción
+        </h1>
+
+        <FilterSection filters={filters} setFilters={setFilters} />
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
           {filteredAnimals.map((animal) => (
             <AnimalCard
               key={animal.id}
@@ -469,43 +476,41 @@ function Animals() {
             />
           ))}
         </div>
-      )}
-      <AnimatePresence>
-        {expandedAnimal && (
-          <ExpandedAnimalCard
-            animal={expandedAnimal}
-            onClose={handleCloseExpanded}
-            onAdopt={handleAdopt}
-          />
+
+        <AnimatePresence>
+          {expandedAnimal && (
+            <ExpandedAnimalCard
+              animal={expandedAnimal}
+              onClose={handleCloseExpanded}
+              onAdopt={handleAdopt}
+            />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {adoptionFormAnimal && (
+            <AdoptionForm
+              animal={adoptionFormAnimal}
+              onClose={handleCloseAdoptionForm}
+              onSubmit={handleSubmitAdoption}
+            />
+          )}
+        </AnimatePresence>
+
+        {submitStatus === "sending" && (
+          <div className="text-center py-4">Enviando solicitud...</div>
         )}
-        {adoptionFormAnimal && (
-          <AdoptionForm
-            animal={adoptionFormAnimal}
-            onClose={handleCloseAdoptionForm}
-            onSubmit={handleSubmitAdoption}
-          />
+        {submitStatus === "success" && (
+          <div className="text-center py-4 text-green-600">
+            Solicitud enviada correctamente.
+          </div>
         )}
-      </AnimatePresence>
-      {submitStatus === "success" && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-xl">
-            <p className="text-green-600 font-semibold text-lg">
-              Solicitud de adopción enviada con éxito. Nos pondremos en contacto
-              contigo pronto.
-            </p>
+        {submitStatus === "error" && (
+          <div className="text-center py-4 text-red-600">
+            Error al enviar la solicitud. Por favor, inténtalo de nuevo.
           </div>
-        </div>
-      )}
-      {submitStatus === "error" && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-xl">
-            <p className="text-red-600 font-semibold text-lg">
-              Error al enviar la solicitud de adopción. Por favor, inténtalo de
-              nuevo más tarde.
-            </p>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }

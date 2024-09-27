@@ -5,14 +5,14 @@ import { motion } from "framer-motion"
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1100)
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1280)
   const [isScrolled, setIsScrolled] = useState(false)
   const location = useLocation()
   const menuRef = useRef(null)
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 1100)
+      setIsSmallScreen(window.innerWidth < 1280)
     }
 
     const handleScroll = () => {
@@ -45,8 +45,9 @@ function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-blue-600 bg-opacity-80" : "bg-blue-600"
+        isScrolled ? "bg-opacity-80" : ""
       }`}
+      style={{ backgroundColor: "#8B4513" }}
     >
       <nav
         className="container mx-auto px-4 py-4"
@@ -55,15 +56,15 @@ function Header() {
         <div className="flex justify-between items-center">
           <Link
             to="/"
-            className="text-2xl font-bold text-white"
+            className="text-2xl text-[#FFEFD5]"
             aria-label="Inicio de AdoptaPet"
           >
-            AdoptaPet
+            Mi mejor amigo de 4 patas
           </Link>
           {isSmallScreen ? (
             <button
               onClick={toggleMenu}
-              className="text-white focus:outline-none focus:text-white"
+              className="text-[#FFEFD5] focus:outline-none focus:text-[#FFEFD5]"
               aria-expanded={isMenuOpen}
               aria-controls="mobile-menu"
               aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
@@ -76,7 +77,7 @@ function Header() {
             </button>
           ) : (
             <div
-              className="space-x-4"
+              className="ml-auto space-x-4"
               role="menubar"
               aria-label="Opciones de navegación"
               ref={menuRef}
@@ -90,7 +91,7 @@ function Header() {
                 >
                   <Link
                     to={item.to}
-                    className={`relative text-white transition-colors duration-300 py-2 px-1 ${
+                    className={`relative text-[#FFEFD5] transition-colors duration-300 py-2 px-1 ${
                       location.pathname === item.to ? "font-bold" : ""
                     }`}
                     role="menuitem"
@@ -125,7 +126,7 @@ function Header() {
               <Link
                 key={item.to}
                 to={item.to}
-                className="block py-2 text-white hover:bg-blue-700 transition-colors duration-300"
+                className="block py-2 text-[#FFEFD5] hover:bg-white hover:bg-opacity-20 transition-colors duration-300"
                 onClick={() => setIsMenuOpen(false)}
                 role="menuitem"
               >

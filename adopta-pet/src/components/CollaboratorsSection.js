@@ -46,7 +46,7 @@ const collaborators = [
 
 function CollaboratorsSection() {
   return (
-    <section className="py-20 bg-white overflow-hidden">
+    <section className="bg-[#8B4513] py-20 bg-white overflow-hidden">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-10">
           Nuestros Colaboradores
@@ -74,7 +74,7 @@ function CollaboratorsSection() {
                     href={collaborator.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block"
+                    className="text-[#A690A4] inline-block"
                   >
                     <img
                       src={collaborator.logo}

@@ -11,11 +11,12 @@ import Volunteer from "./pages/Volunteer"
 import AdoptionConditions from "./pages/AdoptionConditions"
 import Donate from "./pages/Donate"
 import Store from "./pages/Store.js"
-import { db, storage } from "./firebase"
+import GlobalStyles from "./components/GlobalStyles"
 
 function App() {
   return (
     <Router>
+      <GlobalStyles />
       <div className="flex flex-col min-h-screen">
         <Header />
         <Routes>

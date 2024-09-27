@@ -16,12 +16,14 @@ function ProductCard({ product, onOrder }) {
         className="w-full h-48 object-cover"
       />
       <div className="p-4">
-        <h3 className="text-lg font-semibold mb-2">{product.productName}</h3>
-        <p className="text-gray-600 mb-2">{product.price.toFixed(2)}€</p>
-        <p className="text-sm text-gray-500 mb-4">Para: {product.type}</p>
+        <h3 className="text-lg font-semibold mb-2 text-[#A690A4]">
+          {product.productName}
+        </h3>
+        <p className="text-[#49C891] mb-2">{product.price.toFixed(2)}€</p>
+        <p className="text-sm text-[#FCD0A1] mb-4">Para: {product.type}</p>
         <button
           onClick={() => onOrder(product)}
-          className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          className="w-full bg-[#49C891] text-white px-4 py-2 rounded hover:bg-[#A690A4] transition duration-300 focus:outline-none focus:ring-2 focus:ring-[#FCD0A1] focus:ring-opacity-50"
         >
           Pedir producto
         </button>
@@ -34,10 +36,10 @@ function FilterButton({ category, activeCategory, onClick }) {
   return (
     <button
       onClick={() => onClick(category)}
-      className={`px-4 py-2 rounded-full transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 ${
+      className={`px-4 py-2 rounded-full transition duration-300 focus:outline-none focus:ring-2 focus:ring-[#49C891] focus:ring-opacity-50 ${
         activeCategory === category
-          ? "bg-blue-600 text-white"
-          : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+          ? "bg-[#49C891] text-white"
+          : "bg-[#FCD0A1] text-[#A690A4] hover:bg-[#A690A4] hover:text-[#FCD0A1]"
       }`}
     >
       {category}
@@ -234,8 +236,17 @@ function Store() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6 text-center">
+    <div
+      className="container mx-auto px-4 py-8"
+      style={{
+        backgroundColor: "#FFEFD5",
+        /* backgroundImage:
+        "url('https://firebasestorage.googleapis.com/v0/b/shelter-app-e67e8.appspot.com/o/icons%2FFondo-Animals.webp?alt=media&token=e4c9fcb1-2334-44c8-8550-df30bcd7807f')",
+       */ backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <h1 className="text-3xl font-bold mb-6 text-center text-[#8B4513]">
         Tienda de Mascotas
       </h1>
       <div className="mb-8 flex justify-center space-x-4">
@@ -258,7 +269,7 @@ function Store() {
         ))}
       </div>
       {filteredProducts.length === 0 && (
-        <p className="text-center text-gray-600 mt-8">
+        <p className="text-center text-[#A690A4] mt-8">
           No se encontraron productos en esta categoría.
         </p>
       )}

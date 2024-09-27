@@ -7,13 +7,13 @@ function PrivacyPolicy() {
 
   return (
     <>
-      <button onClick={toggleModal} className="text-white hover:underline">
+      <button onClick={toggleModal} className="text-[#A690A4] hover:underline">
         Política de privacidad y protección de datos personales
       </button>
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
-            <h2 className="text-2xl text-black font-bold mb-4">
+            <h2 className="text-2xl text-[#A690A4] font-bold mb-4">
               Política de Privacidad y Protección de Datos Personales
             </h2>
             <div className="text-sm text-black">
