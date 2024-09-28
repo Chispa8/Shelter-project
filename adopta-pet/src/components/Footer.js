@@ -115,12 +115,12 @@ function Footer() {
         </div>
       </div>
 
-      {/* Imagen en la esquina inferior derecha */}
+      {/* 
       <img
         src="https://firebasestorage.googleapis.com/v0/b/shelter-app-e67e8.appspot.com/o/icons%2FPerro-gato.PNG?alt=media&token=bfe80e24-a357-4030-96de-b443fe573c67"
         alt="Perro y gato"
         className="absolute bottom-0 right-0 w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 lg:w-60 lg:h-60 object-contain opacity-90 z-0"
-      />
+      /> */}
     </footer>
   )
 }

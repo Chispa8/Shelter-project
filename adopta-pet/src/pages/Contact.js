@@ -1,4 +1,6 @@
 import React, { useState } from "react"
+import { motion } from "framer-motion"
+import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa"
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -61,114 +63,140 @@ function Contact() {
 
   return (
     <div
-      className="container mx-auto px-4 py-8"
+      className="min-h-screen py-12 px-4 sm:px-6 lg:px-8"
       style={{
         backgroundColor: "#FFEFD5",
-        /* backgroundImage:
-        "url('https://firebasestorage.googleapis.com/v0/b/shelter-app-e67e8.appspot.com/o/icons%2FFondo-Animals.webp?alt=media&token=e4c9fcb1-2334-44c8-8550-df30bcd7807f')",
-       */ backgroundSize: "cover",
+        backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      <h1 className="text-3xl font-bold mb-6 text-center text-[#8B4513]">
-        Contáctanos
-      </h1>
-      <div className="max-w-lg mx-auto bg-white rounded-lg shadow-md p-6">
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              htmlFor="name"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Nombre
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-4xl font-extrabold mb-12 text-center text-[#8B4513]">
+          Contáctanos
+        </h1>
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+          <div className="p-8">
+            <form onSubmit={handleSubmit}>
+              <div className="mb-6">
+                <label
+                  htmlFor="name"
+                  className="block text-[#8B4513] font-semibold mb-2"
+                >
+                  Nombre
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-[#A690A4] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8B4513] transition duration-300"
+                  required
+                />
+              </div>
+              <div className="mb-6">
+                <label
+                  htmlFor="email"
+                  className="block text-[#8B4513] font-semibold mb-2"
+                >
+                  Correo Electrónico
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-[#A690A4] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8B4513] transition duration-300"
+                  required
+                />
+              </div>
+              <div className="mb-6">
+                <label
+                  htmlFor="subject"
+                  className="block text-[#8B4513] font-semibold mb-2"
+                >
+                  Asunto
+                </label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-[#A690A4] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8B4513] transition duration-300"
+                  required
+                />
+              </div>
+              <div className="mb-6">
+                <label
+                  htmlFor="message"
+                  className="block text-[#8B4513] font-semibold mb-2"
+                >
+                  Mensaje
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows="4"
+                  className="w-full px-4 py-3 border border-[#A690A4] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8B4513] transition duration-300"
+                  required
+                ></textarea>
+              </div>
+              <div className="flex items-center justify-between">
+                <motion.button
+                  type="submit"
+                  className="bg-[#8B4513] hover:bg-[#A690A4] text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
+                  disabled={submitStatus === "sending"}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {submitStatus === "sending"
+                    ? "Enviando..."
+                    : "Enviar Mensaje"}
+                </motion.button>
+                {submitStatus === "success" && (
+                  <p className="text-green-600 font-semibold">
+                    Mensaje enviado con éxito!
+                  </p>
+                )}
+                {submitStatus === "error" && (
+                  <p className="text-red-600 font-semibold">
+                    Error al enviar el mensaje. Por favor, inténtalo de nuevo.
+                  </p>
+                )}
+              </div>
+            </form>
           </div>
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Correo Electrónico
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="subject"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Asunto
-            </label>
-            <input
-              type="text"
-              id="subject"
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              htmlFor="message"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Mensaje
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              rows="4"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            ></textarea>
-          </div>
-          <div className="flex items-center justify-between">
-            <button
-              type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300"
-              disabled={submitStatus === "sending"}
-            >
-              {submitStatus === "sending" ? "Enviando..." : "Enviar Mensaje"}
-            </button>
-            {submitStatus === "success" && (
-              <p className="text-green-600 font-semibold">
-                Mensaje enviado con éxito!
+        </div>
+        <motion.div
+          className="mt-12 bg-[#FCD0A1] rounded-xl shadow-lg p-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <h2 className="text-2xl font-bold mb-6 text-[#8B4513] text-center">
+            Información de Contacto
+          </h2>
+          <div className="flex flex-col items-center space-y-4">
+            <div className="flex items-center">
+              <FaPhone className="text-[#8B4513] mr-4" />
+              <p className="text-[#8B4513]">Teléfono: (123) 456-7890</p>
+            </div>
+            <div className="flex items-center">
+              <FaEnvelope className="text-[#8B4513] mr-4" />
+              <p className="text-[#8B4513]">Email: info@adoptapet.com</p>
+            </div>
+            <div className="flex items-center">
+              <FaMapMarkerAlt className="text-[#8B4513] mr-4" />
+              <p className="text-[#8B4513]">
+                Dirección: 123 Calle Principal, Ciudad, País
               </p>
-            )}
-            {submitStatus === "error" && (
-              <p className="text-red-600 font-semibold">
-                Error al enviar el mensaje. Por favor, inténtalo de nuevo.
-              </p>
-            )}
+            </div>
           </div>
-        </form>
-      </div>
-      <div className="mt-12 text-center">
-        <h2 className="text-2xl font-bold mb-4">Información de Contacto</h2>
-        <p className="mb-2">Teléfono: (123) 456-7890</p>
-        <p className="mb-2">Email: info@adoptapet.com</p>
-        <p>Dirección: 123 Calle Principal, Ciudad, País</p>
+        </motion.div>
       </div>
     </div>
   )
